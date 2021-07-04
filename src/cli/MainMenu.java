@@ -63,7 +63,7 @@ public class MainMenu {
                             System.out.println("No rooms available for those dates");
                         } else {
                             for (IRoom room : rooms) {
-                                room.toString();
+                                System.out.println(room.toString());
                             }
                         }
 //                        findReserveRoom();
