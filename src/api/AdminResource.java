@@ -5,20 +5,28 @@ import model.IRoom;
 import service.CustomerService;
 import service.ReservationService;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class AdminResource {
 
     public static AdminResource adminResource = null;
-    public CustomerService customerService = new CustomerService();
-    public ReservationService reservationService = new ReservationService();
+    private CustomerService customerService = CustomerService.getInstance();
+    private ReservationService reservationService = ReservationService.getInstance();
+
+    private AdminResource() {}
+
+    public static AdminResource getInstance() {
+        if (null == adminResource) {
+            adminResource = new AdminResource();
+        }
+        return adminResource;
+    }
 
     public Customer getCustomer(String email) {
         return customerService.getCustomer(email);
     }
 
-    public void addRoom(List<IRoom> rooms) {
+    public void addRoom(Collection<IRoom> rooms) {
         for (IRoom room : rooms) {
             reservationService.addRoom(room);
         }
@@ -28,7 +36,7 @@ public class AdminResource {
         return reservationService.getAllRooms();
     }
 
-    public Collection<Customer> getAllCustomers() {
+    public Map<String, Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
