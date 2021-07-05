@@ -14,16 +14,14 @@ import static java.lang.Boolean.TRUE;
 
 public class ReservationService {
     private static ReservationService reservationService = null;
-    public Collection<IRoom> rooms = new ArrayList();
-    private Collection<Reservation> reservations = new ArrayList();
 
-    public ReservationService() {
-        this.reservations = new ArrayList();
-        this.rooms = new ArrayList();
-    }
+    Collection<IRoom> rooms = new ArrayList();
+    Collection<Reservation> reservations = new ArrayList();
 
-    public static ReservationService getReservationService() {
-        if (reservationService == null) {
+    private ReservationService() {}
+
+    public static ReservationService getInstance() {
+        if (null == reservationService) {
             reservationService = new ReservationService();
         }
         return reservationService;
@@ -103,5 +101,10 @@ public class ReservationService {
     }
 
     public void printAllReservations() {
+        System.out.println("There are " + reservations.size() + " in the reservation system:");
+        for (Reservation each : reservations) {
+            System.out.println("\t" + each);
+        }
     }
+
 }
