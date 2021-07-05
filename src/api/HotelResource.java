@@ -12,9 +12,19 @@ import java.util.Scanner;
 
 public class HotelResource {
 
-    public static HotelResource hotelResource = null;
-    public CustomerService customerService = new CustomerService();
-    public ReservationService resrvService = new ReservationService();
+    private static HotelResource hotelResource = null;
+
+    public CustomerService customerService = CustomerService.getInstance();
+    public static final ReservationService resrvService = ReservationService.getInstance();
+
+    private HotelResource() {}
+
+    public static HotelResource getInstance() {
+        if (null == hotelResource) {
+            hotelResource = new HotelResource();
+        }
+        return hotelResource;
+    }
 
     public Customer getCustomer(String email) {
         return customerService.getCustomer(email);
