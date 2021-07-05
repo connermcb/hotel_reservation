@@ -4,14 +4,18 @@ import model.Customer;
 import model.IRoom;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerService {
 
     private static CustomerService customerService = null;
-    private Map<String, Customer> customers;
 
-    public static CustomerService getCustomerService() {
+    public Map<String, Customer> customers = new HashMap();
+
+    private CustomerService() {}
+
+    public static CustomerService getInstance() {
         if (customerService == null) {
             customerService = new CustomerService();
         }
@@ -27,7 +31,7 @@ public class CustomerService {
         return this.customers.get(customerEmail);
     }
 
-    public Collection<Customer> getAllCustomers() {
-        return (Collection<Customer>) this.customers;
+    public Map<String, Customer> getAllCustomers() {
+        return this.customers;
     }
 }
