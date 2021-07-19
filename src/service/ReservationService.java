@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import api.HotelResource;
+import cli.MainMenu;
 import model.IRoom;
 import model.Reservation;
 import model.Customer;
@@ -15,8 +17,10 @@ import static java.lang.Boolean.TRUE;
 public class ReservationService {
     private static ReservationService reservationService = null;
 
+    public static final HotelResource hotelResource = HotelResource.getInstance();
     Collection<IRoom> rooms = new ArrayList();
-    Collection<Reservation> reservations = new ArrayList();
+    Set<Reservation> reservations = new HashSet<Reservation>();
+
 
     private ReservationService() {}
 
@@ -37,7 +41,7 @@ public class ReservationService {
 
     public IRoom getARoom(String roomID) {
         for (IRoom room : rooms) {
-            if (room.getRoomNumber() == roomID) {
+            if (room.getRoomNumber().equals(roomID)) {
                 return room;
             }
         }
@@ -75,6 +79,9 @@ public class ReservationService {
 
     public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
         Reservation reservation = new Reservation(customer, room, checkInDate, checkOutDate);
+        if (reservations.contains(reservation)) {
+            throw new IllegalArgumentException("The reservation conflicts with existing reservation.");
+        }
         this.reservations.add(reservation);
         return reservation;
     }
@@ -93,7 +100,7 @@ public class ReservationService {
     public Collection<Reservation> getCustomersReservation(String customerEmail) {
         List tmpList = new ArrayList();
         for (Reservation r : reservations) {
-            if (r.customer.email == customerEmail) {
+            if (r.customer.getEmail().equals(customerEmail)) {
                 tmpList.add(r);
             }
         }
@@ -106,5 +113,4 @@ public class ReservationService {
             System.out.println("\t" + each);
         }
     }
-
 }

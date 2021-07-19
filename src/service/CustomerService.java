@@ -1,13 +1,18 @@
 package service;
 
+import api.HotelResource;
 import model.Customer;
 import model.IRoom;
 
 import java.util.Collection;
+import cli.MainMenu;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class CustomerService {
+
+    public static final HotelResource hotelResource = HotelResource.getInstance();
 
     private static CustomerService customerService = null;
 
@@ -34,4 +39,6 @@ public class CustomerService {
     public Map<String, Customer> getAllCustomers() {
         return this.customers;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package cli;
 
+import api.HotelResource;
 import service.CustomerService;
 import service.ReservationService;
 
@@ -10,8 +11,7 @@ import static java.lang.Boolean.FALSE;
 
 public class MainMenu {
 
-    public static final ReservationService reservationService = ReservationService.getInstance();
-    public static final CustomerService customerService = CustomerService.getInstance();
+    public static final HotelResource hotelResource = HotelResource.getInstance();
 
     public static void outputMainMenu() {
         System.out.println("\n-----------------------------");
@@ -21,7 +21,7 @@ public class MainMenu {
         System.out.println("4. Admin");
         System.out.println("5. Exit");
         System.out.println("-----------------------------\n");
-        System.out.println("Please select an number from the menu");
+        System.out.println("Please select a number from the menu");
     }
     public static void main(String[] args) {
         Boolean keepPolling = TRUE;
@@ -33,13 +33,13 @@ public class MainMenu {
 
                 switch (userSelection) {
                     case 1:
-                        reservationService.findAndReserveRoom(scanner);
+                        hotelResource.findAndReserveRoom(scanner);
                         break;
                     case 2:
-                        reservationService.seeReservation(scanner);
+                        hotelResource.seeReservation(scanner);
                         break;
                     case 3:
-                        customerService.createAccount(scanner);
+                        hotelResource.createAccount(scanner);
                         break;
                     case 4:
                         AdminMenu.main(null);

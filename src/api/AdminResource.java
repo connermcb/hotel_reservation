@@ -32,9 +32,14 @@ public class AdminResource {
         }
     }
 
+    public IRoom getARoom(String roomNumber) {
+        return reservationService.getARoom(roomNumber);
+    }
+
     public Collection<IRoom> getAllRooms() {
         return reservationService.getAllRooms();
     }
+
 
     public Map<String, Customer> getAllCustomers() {
         return customerService.getAllCustomers();
